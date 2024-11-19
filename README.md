@@ -101,21 +101,22 @@ All these will also help to keep a record of the progress made and projects done
    - Resource categories and downloadable content.  
    - Include search functionality.  
 
-4. Community Page:  
+4. Community Page:
+   - Users being able to share their projects for collaboration with those interested.
    - Create a discussion forum using a backend API.  
    - Enable users to post and comment.  
 
-5. Blog Page:  
+6. Blog Page:  
    - Create a CMS-like structure for adding and managing articles.  
    - Use Markdown or rich text editors.  
 
-6. Alumni Page:  
+7. Alumni Page:  
    - Showcase profiles dynamically from the database.  
 
-7. Testimonials Page:  
+8. Testimonials Page:  
    - Collect and display user feedback dynamically.  
 
-8. Contact Page:  
+9. Contact Page:  
    - Build a form for sending messages.  
    - Integrate email sending.  
 
