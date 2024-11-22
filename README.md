@@ -58,7 +58,7 @@ The Maasai Mara University Tech Community website aims to foster collaboration, 
    ```bash  
    npm run dev  
    ```  
-   Access the website at `http://localhost:3000`.  
+   > Access the website at `http://localhost:3000`.  
 
 
 4. Build for Production:  
