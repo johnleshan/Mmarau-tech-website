@@ -16,16 +16,16 @@ The Maasai Mara University Tech Community website aims to foster collaboration, 
 
 ## Features  
 
-- Login/Sign-Up Page: Secure authentication for users.  
-- Landing/Homepage: A welcoming page showcasing the purpose and highlights of the tech community.  
-- Blog: A space to share tech-related articles and insights.  
-- About Page: Information about the tech community and its mission.  
-- Contact Page: An easy way to reach the team.  
-- Programs Page: Details about courses, workshops, and events.  
-- Resources Page: A library of learning materials and tools .  
-- Alumni Page: A spotlight on past students and their achievements.  
-- Testimonials Page: Feedback and success stories from community members.  
-- Community Page: A forum for discussions and collaborations.
+- [ ] Login/Sign-Up Page: Secure authentication for users.
+- [ ] Landing/Homepage: A welcoming page showcasing the purpose and highlights of the tech community.
+- [ ] Blog: A space to share tech-related articles and insights.
+- [ ] About Page: Information about the tech community and its mission.
+- [ ] Contact Page: An easy way to reach the team.
+- [ ] Programs Page: Details about courses, workshops, and events.
+- [ ] Resources Page: A library of learning materials and tools.
+- [ ] Alumni Page: A spotlight on past students and their achievements.
+- [ ] Testimonials Page: Feedback and success stories from community members.
+- [ ] Community Page: A forum for discussions and collaborations.
 
 All these will also help to keep a record of the progress made and projects done to motivate and build a rich ecosystem of tech-oriented individuals form the institution.
 
