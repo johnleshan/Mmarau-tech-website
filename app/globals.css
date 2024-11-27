@@ -14,7 +14,16 @@
   --ggle-green: #0f9d58;
   --ggle-grey: #9aa0a6;
   --ggle-green-500: #34a853;
+  --font-primary: 'Montserrat', sans-serif;
+  --font-secondary: 'Outfit', sans-serif;
+  --bg-gradient: linear-gradient(45deg, var(--ggle-yellow), var(--ggle-red), var(--ggle-yellow));
+}
+.font-primary {
+  font-family: var(--font-primary);
+}
 
+.font-secondary {
+  font-family: var(--font-secondary);
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -30,9 +39,63 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+
 /* Start Nav bar styles */
 .navBar{
-  @apply 
+@apply text-white justify-between items-center 
 }
+.navBar .dynamic-island{
+  background-color: var(--ggle-blue);
+  @apply justify-center items-center rounded-full flex-wrap xl:w-53p
+}
+
+.navBar ul li{
+  @apply inline-block p-3 px-5 text-white  justify-around items-center relative
+}
+
+.navBar ul li .linked-li {
+  position: relative; /* Ensure the linked-li div is positioned relative */
+}
+
+.navBar ul li .linked-li::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px; /* Adjust as needed to position the line below the linked-li div */
+  width: 0;
+  height: 2px;
+  background-color: white;
+  transition: width 0.3s ease-in-out;
+}
+
+.navBar ul li .linked-li:hover::after {
+  width: 100%;
+}
+
+.navBar .logIn{
+  background-color: var(--ggle-blue);
+  @apply rounded p-2 px-5 text-white 
+}
+
+/* styles.css */
+.screen-md {
+  display: block; /* Visible only for md screen sizes */
+}
+
+.screen-md-hidden {
+  display: none; /* Hidden for other screen sizes */
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .screen-md {
+    display: block;
+  }
+
+  .screen-md-hidden {
+    display: none;
+  }
+}
+
+
 
 /* End Nav bar */
