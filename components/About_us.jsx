@@ -2,24 +2,13 @@
 
 import Image from 'next/image';
 import { useEffect } from 'react';
-import Swiper from 'swiper';
-import 'swiper/swiper-bundle.min.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-const GDSCSection = () => {
-  useEffect(() => {
-    new Swiper('.swiper-container', {
-      loop: true,
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-    });
-  }, []);
-
+const About_us = () => {
   return (
     <div className="bg-gray-100">
       {/* About Section */}
@@ -32,7 +21,8 @@ const GDSCSection = () => {
           </div>
           <div className="w-full md:w-1/2">
             <p className="text-gray-700 text-lg leading-relaxed">
-              Google Developer Groups on Campus (GDGoC) at Maasai Mara University is a vibrant community for students passionate about technology and innovation.
+            Google Developer Groups on Campus (GDGoC) at Maasai Mara University is a vibrant community for students passionate about technology and innovation. 
+            Whether you are an aspiring developer, designer, or tech enthusiast, GDGoC offers a unique platform to:
             </p>
             <ul className="list-disc pl-6 text-gray-700">
               <li>Gain hands-on experience with cutting-edge technologies.</li>
@@ -43,15 +33,16 @@ const GDSCSection = () => {
             </ul>
           </div>
         </div>
+        
         {/* Mission and Vision */}
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white shadow-md rounded-lg p-6">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Mission Statement</h3>
-            <p className="text-gray-700 leading-relaxed">To empower students with cutting-edge technological skills...</p>
+            <p className="text-gray-700 leading-relaxed">To empower students with cutting-edge technological skills, foster innovation, and build a vibrant community of tech enthusiasts through collaborative learning, hands-on projects, and industry exposure.</p>
           </div>
           <div className="bg-white shadow-md rounded-lg p-6">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Vision Statement</h3>
-            <p className="text-gray-700 leading-relaxed">To be a leading university tech community...</p>
+            <p className="text-gray-700 leading-relaxed">To be a leading university tech community that nurtures talent, drives technological advancements, and inspires the next generation of innovators and leaders.</p>
           </div>
         </div>
       </section>
@@ -79,26 +70,29 @@ const GDSCSection = () => {
       {/* Leaders Section */}
       <section className="max-w-7xl mx-auto px-6 py-10">
         <h3 className="text-xl font-semibold text-center text-gray-800 mb-6">Club Leaders</h3>
-        <div className="swiper-container">
-          <div className="swiper-wrapper">
-            {[
-              { name: "Michael Simiyu", role: "Team Lead", img: "Team Lead.jpg" },
-              { name: "Derrick Ngari", role: "Assistant Team Lead", img: "Assistant Team Lead.jpg" },
-              { name: "Lilian Njeri", role: "General Secretary", img: "General Secretary.jpg" },
-              { name: "Peter Kimani", role: "Treasurer", img: "Treasurer.jpg" }
-            ].map((leader, index) => (
-              <div key={index} className="swiper-slide text-center">
-                <Image src={`/Images/${leader.img}`} alt={leader.name} width={96} height={96} className="rounded-full mx-auto mb-2" />
-                <h4 className="font-semibold text-gray-800">{leader.name}</h4>
-                <p className="text-sm text-gray-600">{leader.role}</p>
-              </div>
-            ))}
-          </div>
-          <div className="swiper-pagination"></div>
-        </div>
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay]}
+          loop={true}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          className="swiper-container"
+        >
+          {[
+            { name: "Michael Simiyu", role: "Team Lead", img: "Team Lead.jpg" },
+            { name: "Derrick Ngari", role: "Assistant Team Lead", img: "Assistant Team Lead.jpg" },
+            { name: "Lilian Njeri", role: "General Secretary", img: "General Secretary.jpg" },
+            { name: "Peter Kimani", role: "Treasurer", img: "Treasurer.jpg" }
+          ].map((leader, index) => (
+            <SwiperSlide key={index} className="text-center">
+              <Image src={`/Images/${leader.img}`} alt={leader.name} width={96} height={96} className="rounded-full mx-auto mb-2" />
+              <h4 className="font-semibold text-gray-800">{leader.name}</h4>
+              <p className="text-sm text-gray-600">{leader.role}</p>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </section>
     </div>
   );
 };
 
-export default GDSCSection;
+export default About_us;
