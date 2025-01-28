@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useEffect, useState } from "react";
+import '../app/globals.css'
 import Link from "next/link";
 import Image from "next/image";
 import home_icon from "../public/assets/icons/home-icon.svg";
@@ -9,9 +10,17 @@ import programs_icon from "../public/assets/icons/programs.svg";
 import blog_icon from "../public/assets/icons/blogs.svg";
 import resources_icon from "../public/assets/icons/folder-icon.svg";
 import logIn_icon from "../public/assets/icons/login-icon.svg";
+import menu_icon from "../public/assets/icons/menu-icon.png";
+
 const Nav = () => {
+  const [mobileMenu, setMobileMenu] = useState(false);
+  const toggleMenu = () => {
+    mobileMenu?setMobileMenu(!mobileMenu):setMobileMenu(!mobileMenu);
+    console.log("clicked");
+    console.log(mobileMenu);
+  };
   return (
-    <div className="navBar flex items-center">
+    <div className="navBar flex items-center relative">
       <div className="w-52 logo">
         <Link href="/">
           <div className="flex items-center pt-2 px-2 pb-2 cursor-default">
@@ -33,7 +42,7 @@ const Nav = () => {
         </Link>
       </div>
 
-      <ul className="dynamic-island flex">
+      <ul className={`dynamic-island  hide-mobile-menu `}>
         <li className="">
           <Link href="/">
             <div className="flex items-center linked-li">
@@ -106,21 +115,31 @@ const Nav = () => {
         </li>
       </ul>
       <ul>
-        <li className="logIn flex">
-          <Link href="/" className="flex items-center linked-li">
-            <div className="flex items-center linked-li">
+        <li className="logIn flex ">
+          <Link href="/" className="flex items-center ">
+            <div className="flex items-center">
               <span className="md:hidden lg:inline xl:inline">Sign In</span>
               <Image
                 src={logIn_icon}
                 alt="logIn"
                 width={20}
                 height={20}
-                className="object-contain ml-2 "
+                className="object-contain xsm:ml-2 md:ml-0 lg:ml-2 xl:ml-2"
               />
             </div>
           </Link>
         </li>
       </ul>
+      <div>
+        <Image
+        src={menu_icon}
+        alt="menu"
+        width={25}
+        height={25}
+        className="menu-icon xsm:block z-10 xsm:right-2 xsm:fixed cursor-pointer md:hidden lg:hidden xl:hidden "
+        onClick={toggleMenu}
+      />
+      </div>
     </div>
   );
 };

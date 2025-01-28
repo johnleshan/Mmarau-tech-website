@@ -3,13 +3,13 @@ import Nav from '../components/Nav'
 import Provider from '../components/Provider'
 
 export const metadata = {
-    title: 'GDCos',
+    title: 'GDGoC',
     description: 'The techie meet-Up',
 }
 
 const RootLayout = ({ children }) =>{
     return (
-        <html lang='en'>
+        <html lang='en' className='overflow-x-hidden'>
             <body>
                
                     <main className="app">

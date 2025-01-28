@@ -25,13 +25,18 @@
 .font-secondary {
   font-family: var(--font-secondary);
 }
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* .bg-ggle-sign {
+  background-color: var(--ggle-blue);
 } */
+@layer utilities {
+  .bg-ggle-sign {
+    background-color:#32a8a0;
+  }
+   .xsm\:hide-mobile-menu {
+    right: -208px;
+  }
+  
+}
 
 body {
   color: var(--foreground);
@@ -44,17 +49,20 @@ body {
 .navBar{
 @apply text-white justify-between items-center 
 }
+
+
 .navBar .dynamic-island{
   background-color: var(--ggle-blue);
-  @apply justify-center items-center rounded-full flex-wrap xl:w-53p
+  @apply lg:flex xl:flex lg:justify-center xl:justify-center md:justify-center md:items-center lg:items-center xl:items-center md:rounded-full lg:rounded-full xl:rounded-full md:flex-wrap lg:flex-wrap xl:flex-wrap xl:w-53p xsm:fixed md:relative lg:relative xl:relative xsm:flex xsm:flex-col md:flex-row lg:flex-row xl:flex-row xsm:top-0 xsm:right-0 xsm:bottom-0 xsm:w-52 
 }
 
 .navBar ul li{
-  @apply inline-block p-3 px-5 text-white  justify-around items-center relative
+  @apply inline-block p-3 px-5 text-white  justify-around items-center relative 
 }
 
 .navBar ul li .linked-li {
-  position: relative; /* Ensure the linked-li div is positioned relative */
+  position: relative;
+  @apply xsm:top-10
 }
 
 .navBar ul li .linked-li::after {
@@ -73,29 +81,10 @@ body {
 }
 
 .navBar .logIn{
-  background-color: var(--ggle-blue);
-  @apply rounded p-2 px-5 text-white 
+  @apply md:rounded lg:rounded xl:rounded  xsm:p-2 xsm:px-5 lg:p-2 lg:px-5 xl:p-2 xl:px-5 text-white xsm:fixed md:relative lg:relative xl:relative xsm:z-10 xsm:bottom-2 xsm:right-10 md:right-0 lg:right-0 xl:right-0 xsm:rounded xsm:bg-ggle-sign md:bg-ggle-sign  lg:bg-ggle-sign  xl:bg-ggle-sign 
+
+
 }
-
-/* styles.css */
-.screen-md {
-  display: block; /* Visible only for md screen sizes */
-}
-
-.screen-md-hidden {
-  display: none; /* Hidden for other screen sizes */
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-  .screen-md {
-    display: block;
-  }
-
-  .screen-md-hidden {
-    display: none;
-  }
-}
-
 
 
 /* End Nav bar */
