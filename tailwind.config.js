@@ -12,7 +12,7 @@ module.exports = {
         '47p': '47%',
       },
       screens: {
-        'xsm': {'max': '768px'},
+        'xsm': {'max': '767px'},
       },
       // inset: {
       //   '-208': '-208px',

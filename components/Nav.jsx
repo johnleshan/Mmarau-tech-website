@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useEffect, useState } from "react";
-import '../app/globals.css'
+import "../app/globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import home_icon from "../public/assets/icons/home-icon.svg";
@@ -15,7 +15,7 @@ import menu_icon from "../public/assets/icons/menu-icon.png";
 const Nav = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const toggleMenu = () => {
-    mobileMenu?setMobileMenu(!mobileMenu):setMobileMenu(!mobileMenu);
+    mobileMenu ? setMobileMenu(!mobileMenu) : setMobileMenu(!mobileMenu);
     console.log("clicked");
     console.log(mobileMenu);
   };
@@ -42,7 +42,11 @@ const Nav = () => {
         </Link>
       </div>
 
-      <ul className={`dynamic-island  hide-mobile-menu `}>
+      <ul
+        className={`dynamic-island transform transition-transform duration-300 ${
+          mobileMenu ? "xsm:translate-x-0" : "xsm:translate-x-full"
+        }`}
+      >
         <li className="">
           <Link href="/">
             <div className="flex items-center linked-li">
@@ -113,32 +117,55 @@ const Nav = () => {
             </div>
           </Link>
         </li>
+        {mobileMenu && (
+          <ul>
+            <li className="logIn flex">
+              <Link href="/" className="flex items-center">
+                <div className="flex items-center">
+                  <span className="md:hidden lg:inline xl:inline">Sign In</span>
+                  <Image
+                    src={logIn_icon}
+                    alt="logIn"
+                    width={20}
+                    height={20}
+                    className="object-contain xsm:ml-2 md:ml-0 lg:ml-2 xl:ml-2"
+                  />
+                </div>
+              </Link>
+            </li>
+          </ul>
+        )}
       </ul>
-      <ul>
-        <li className="logIn flex ">
-          <Link href="/" className="flex items-center ">
-            <div className="flex items-center">
-              <span className="md:hidden lg:inline xl:inline">Sign In</span>
-              <Image
-                src={logIn_icon}
-                alt="logIn"
-                width={20}
-                height={20}
-                className="object-contain xsm:ml-2 md:ml-0 lg:ml-2 xl:ml-2"
-              />
-            </div>
-          </Link>
-        </li>
-      </ul>
-      <div>
-        <Image
-        src={menu_icon}
-        alt="menu"
-        width={25}
-        height={25}
-        className="menu-icon xsm:block z-10 xsm:right-2 xsm:fixed cursor-pointer md:hidden lg:hidden xl:hidden "
+
+      <div className="xsm:hidden block">
+        <ul>
+          <li className="logIn flex">
+            <Link href="/" className="flex items-center">
+              <div className="flex items-center">
+                <span className="md:hidden lg:inline xl:inline">Sign In</span>
+                <Image
+                  src={logIn_icon}
+                  alt="logIn"
+                  width={20}
+                  height={20}
+                  className="object-contain xsm:ml-2 md:ml-0 lg:ml-2 xl:ml-2"
+                />
+              </div>
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div
+        className="bg-[var(--ggle-blue)] p-4 m-3 flex justify-center items-center rounded-lg cursor-pointer md:hidden lg:hidden xl:hidden"
         onClick={toggleMenu}
-      />
+      >
+        <Image
+          src={menu_icon}
+          alt="menu"
+          width={25}
+          height={25}
+          className="menu-icon z-50 cursor-pointer md:hidden lg:hidden xl:hidden"
+        />
       </div>
     </div>
   );
