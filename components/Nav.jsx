@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useEffect, useState } from "react";
+import "../app/globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import home_icon from "../public/assets/icons/home-icon.svg";
@@ -9,9 +10,17 @@ import programs_icon from "../public/assets/icons/programs.svg";
 import blog_icon from "../public/assets/icons/blogs.svg";
 import resources_icon from "../public/assets/icons/folder-icon.svg";
 import logIn_icon from "../public/assets/icons/login-icon.svg";
+import menu_icon from "../public/assets/icons/menu-icon.png";
+
 const Nav = () => {
+  const [mobileMenu, setMobileMenu] = useState(false);
+  const toggleMenu = () => {
+    mobileMenu ? setMobileMenu(!mobileMenu) : setMobileMenu(!mobileMenu);
+    console.log("clicked");
+    console.log(mobileMenu);
+  };
   return (
-    <div className="navBar flex items-center">
+    <div className="navBar flex items-center relative">
       <div className="w-52 logo">
         <Link href="/">
           <div className="flex items-center pt-2 px-2 pb-2 cursor-default">
@@ -33,7 +42,11 @@ const Nav = () => {
         </Link>
       </div>
 
-      <ul className="dynamic-island flex">
+      <ul
+        className={`dynamic-island transform transition-transform duration-300 ${
+          mobileMenu ? "xsm:translate-x-0" : "xsm:translate-x-full"
+        }`}
+      >
         <li className="">
           <Link href="/">
             <div className="flex items-center linked-li">
@@ -104,23 +117,56 @@ const Nav = () => {
             </div>
           </Link>
         </li>
+        {mobileMenu && (
+          <ul>
+            <li className="logIn flex">
+              <Link href="/" className="flex items-center">
+                <div className="flex items-center">
+                  <span className="md:hidden lg:inline xl:inline">Sign In</span>
+                  <Image
+                    src={logIn_icon}
+                    alt="logIn"
+                    width={20}
+                    height={20}
+                    className="object-contain xsm:ml-2 md:ml-0 lg:ml-2 xl:ml-2"
+                  />
+                </div>
+              </Link>
+            </li>
+          </ul>
+        )}
       </ul>
-      <ul>
-        <li className="logIn flex">
-          <Link href="/" className="flex items-center linked-li">
-            <div className="flex items-center linked-li">
-              <span className="md:hidden lg:inline xl:inline">Sign In</span>
-              <Image
-                src={logIn_icon}
-                alt="logIn"
-                width={20}
-                height={20}
-                className="object-contain ml-2 "
-              />
-            </div>
-          </Link>
-        </li>
-      </ul>
+
+      <div className="xsm:hidden block">
+        <ul>
+          <li className="logIn flex">
+            <Link href="/" className="flex items-center">
+              <div className="flex items-center">
+                <span className="md:hidden lg:inline xl:inline">Sign In</span>
+                <Image
+                  src={logIn_icon}
+                  alt="logIn"
+                  width={20}
+                  height={20}
+                  className="object-contain xsm:ml-2 md:ml-0 lg:ml-2 xl:ml-2"
+                />
+              </div>
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div
+        className="bg-[var(--ggle-blue)] p-4 m-3 flex justify-center items-center rounded-lg cursor-pointer md:hidden lg:hidden xl:hidden"
+        onClick={toggleMenu}
+      >
+        <Image
+          src={menu_icon}
+          alt="menu"
+          width={25}
+          height={25}
+          className="menu-icon z-50 cursor-pointer md:hidden lg:hidden xl:hidden"
+        />
+      </div>
     </div>
   );
 };

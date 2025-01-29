@@ -11,6 +11,12 @@ module.exports = {
         '53p': '53%',
         '47p': '47%',
       },
+      screens: {
+        'xsm': {'max': '767px'},
+      },
+      // inset: {
+      //   '-208': '-208px',
+      // },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
