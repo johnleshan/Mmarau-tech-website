@@ -6,7 +6,6 @@ const Home = ()=>{
       <section className="flex flex-col w-full ">
             <About_us />
       </section>
-
   );
 }
 
