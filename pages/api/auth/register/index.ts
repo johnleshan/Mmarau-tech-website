@@ -32,10 +32,10 @@ export default async function handler(
       return res.status(409).json({ message: 'User already exists' })
     }
 
-    // Hash password
+    // Hash password 
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
 
-    // Create user
+    // add the user to db
     const user = await prisma.user.create({
       data: {
         email,
@@ -47,8 +47,7 @@ export default async function handler(
     })
 
     // TODO: email verification
-    // Send verification email (implementation omitted)
-    // sendVerificationEmail(user.email, user.emailToken)
+    // Send verification email (future feature)
 
     return res.status(201).json({
       message: 'User created. Please check your email for verification.',
