@@ -17,6 +17,8 @@ model User {
   isVerified   Boolean  @default(false)
   emailToken   String?  @unique
   tokenExpires DateTime?
+  resetToken        String?  @unique
+  resetTokenExpires DateTime?
 
   @@index([email])
   @@index([username])
