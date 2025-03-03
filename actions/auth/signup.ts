@@ -1,3 +1,4 @@
+"use server";
 import { SignupFormSchema,FormState } from "../../lib/definations"
 import bcrypt from 'bcryptjs'
 import { redirect } from "next/navigation"
@@ -13,6 +14,8 @@ export async function signUp(state:FormState,formData: FormData):Promise<FormSta
   //validate fields
   const validatedFields = SignupFormSchema.safeParse({username, email,password,confirmPassword});
 
+
+
  //returns an errors object if all the checks fail
   if (!validatedFields.success) {
     return {
@@ -23,19 +26,18 @@ export async function signUp(state:FormState,formData: FormData):Promise<FormSta
     const{username: validatedUserName,email: validatedEmail,password: validatedPassword} = validatedFields.data;
 
  try {
-  
-
   const existingUser = await prisma.user.findFirst({
     where: {
       OR: [{ email: validatedEmail}, { username:validatedUserName}],
     },
   })
 
-  if (!existingUser) {
+  if (existingUser) {
     return {
-      error: 'An error occurred while creating your account.',
+      error: 'User with this email or username already exists.',
     }
   }
+  
   // Hash password 
   const hashedPassword = await bcrypt.hash(validatedPassword, SALT_ROUNDS)
 
@@ -49,6 +51,8 @@ export async function signUp(state:FormState,formData: FormData):Promise<FormSta
       tokenExpires: new Date(Date.now() + 3600000), 
     },
   })
+
+  console.log(newUser);
 
   // TODO: email verification
   // Send verification email (future feature)
@@ -69,7 +73,4 @@ if(newUser){
 } finally {
   await prisma.$disconnect()
 }
-  
-
-
 }

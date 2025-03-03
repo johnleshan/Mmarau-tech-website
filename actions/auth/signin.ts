@@ -1,55 +1,53 @@
-import { PrismaClient } from '@prisma/client'
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
-import { FormState, SigninFormSchema } from '../../lib/definations'
+"use server";
 
-const prisma = new PrismaClient()
+import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { FormState, SigninFormSchema } from "../../lib/definations";
 
-// Read your JWT secret from an environment variable
-const JWT_SECRET = process.env.JWT_SECRET || 'test'
-const JWT_EXPIRES_IN = '10h' // Token expires in 10 hours
+const prisma = new PrismaClient();
 
-export default async function signIn(state:FormState,formData: FormData):Promise<FormState> {
-  // assign inputs from form payload
-  const [username,email,password] =[formData.get("username"),formData.get("email"), formData.get("password")];
+const JWT_SECRET = process.env.JWT_SECRET || "test";
+const JWT_EXPIRES_IN = "10h";
 
-  //validate fields
-  const validatedFields = SigninFormSchema.safeParse({username,email,password});
+export default async function signIn(
+  state: FormState,
+  formData: FormData
+): Promise<FormState> {
+  // Extract inputs from form payload
+  const email = formData.get("email");
+  const password = formData.get("password");
 
- //returns if all the checks fail
+  // Validate fields using your schema (which should now only expect email and password)
+  const validatedFields = SigninFormSchema.safeParse({ email, password });
+
   if (!validatedFields.success) {
     return {
       fieldErrors: validatedFields.error?.flatten().fieldErrors,
-    }}
-  
+    };
+  }
 
-     //extract fields from the validated data
-     const{username: validatedUserName,email: validatedEmail,password: validatedPassword} = validatedFields.data;
-
+  // Extract validated data
+  const { email: validatedEmail, password: validatedPassword } = validatedFields.data;
 
   try {
-
-  
-
-    
-
-    const foundUser = await prisma.user.findFirst({
+    // Find the user only by email
+    const foundUser = await prisma.user.findUnique({
       where: {
-        OR: [{ email:validatedEmail }, { username: validatedUserName }],
+        email: validatedEmail,
       },
-    })
+    });
 
     if (!foundUser) {
-      return { error: 'User not found' }
+      return { error: "User not found" };
     }
 
-    //extract all the data properties from the found user
-    const {id:foundUserId,username:foundUserName,isVerified,email:foundUserEmail,passwordHash} = foundUser;
+    const { id: foundUserId, username: foundUserName, isVerified, email: foundUserEmail, passwordHash } = foundUser;
 
     // Compare the provided password with the stored hash
-    const passwordMatch = await bcrypt.compare(validatedPassword, passwordHash)
+    const passwordMatch = await bcrypt.compare(validatedPassword, passwordHash);
     if (!passwordMatch) {
-      return { message: 'Invalid credentials' }
+      return { message: "Invalid credentials" };
     }
 
     const token = jwt.sign(
@@ -59,23 +57,22 @@ export default async function signIn(state:FormState,formData: FormData):Promise
       },
       JWT_SECRET,
       { expiresIn: JWT_EXPIRES_IN }
-    )
+    );
 
     return {
-      message: 'Login successful',
+      message: "Login successful",
       token,
       user: {
         id: foundUserId,
         email: foundUserEmail,
         username: foundUserName,
-        isVerified: isVerified,
+        isVerified,
       },
-    }
+    };
   } catch (error) {
-    console.error('Login error:', error)
-
-    return { error: 'Internal server error' }
+    console.error("Login error:", error);
+    return { error: "Internal server error" };
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
