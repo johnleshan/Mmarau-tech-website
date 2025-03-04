@@ -1,61 +1,51 @@
-import { PrismaClient } from '@prisma/client'
-import crypto from 'crypto'
-import { FormState, RequestResetPasswordFormSchema } from '../../lib/definations';
-import { redirect } from 'next/navigation';
+"use server";
 
+import { PrismaClient } from "@prisma/client";
+import crypto from "crypto";
+import { FormState, RequestResetPasswordFormSchema } from "../../lib/definations";
 
-const prisma = new PrismaClient()
-const RESET_TOKEN_EXPIRY = 3600;
+const prisma = new PrismaClient();
+const RESET_TOKEN_EXPIRY = 3600; // in seconds
 
-export default async function requestResetPassword(state:FormState,formData: FormData) :Promise<FormState> {
-    const email = formData.get("email");
+export default async function requestResetPassword(
+  state: FormState,
+  formData: FormData
+): Promise<FormState> {
+  const email = formData.get("email");
 
-   //validate fields
-  const validatedFields = RequestResetPasswordFormSchema.safeParse({email});
+  // Validate fields
+  const validatedFields = RequestResetPasswordFormSchema.safeParse({ email });
+  if (!validatedFields.success) {
+    return {
+      fieldErrors: validatedFields.error?.flatten().fieldErrors,
+    };
+  }
 
-  //returns if all the checks fail
-   if (!validatedFields.success) {
-     return {
-       fieldErrors: validatedFields.error?.flatten().fieldErrors,
-     }}
-   
- 
-      //extract fields from the validated data
-      const{email: validatedEmail} = validatedFields.data;
-    
-       
-      
+  const { email: validatedEmail } = validatedFields.data;
 
   try {
-  
- 
-
-    // Prevent user enumeration by not revealing if email exists
-    const user = await prisma.user.findUnique({ where: { email:validatedEmail } })
+    // Prevent user enumeration: always return a generic message
+    const user = await prisma.user.findUnique({ where: { email: validatedEmail } });
     if (!user) {
-      return { message: 'If the email exists, a reset link will be sent' }
+      return { message: "If the email exists, a reset link will be sent" };
     }
 
-    // Generate the reset token and expiry
-    const resetToken = crypto.randomUUID()
-    const resetTokenExpires = new Date(Date.now() + RESET_TOKEN_EXPIRY * 1000)
+    // Generate the reset token and expiry time
+    const resetToken = crypto.randomUUID();
+    const resetTokenExpires = new Date(Date.now() + RESET_TOKEN_EXPIRY * 1000);
 
-   const userUpdateResponse =  await prisma.user.update({
+    await prisma.user.update({
       where: { id: user.id },
       data: { resetToken, resetTokenExpires },
-    })
+    });
 
-    // TODO: Implement sending email with reset link
-    // Send email with reset link 
+    // TODO: Implement sending email with the reset link using the token
 
-
-if (userUpdateResponse) redirect("/reset-password");
-    return {
-      message: 'If the email exists, a reset link will be sent',
-    }
+    return { message: "If the email exists, a reset link will be sent" };
   } catch (error) {
-    return { error: 'Internal server error' }
+    console.error("Request reset password error:", error);
+    return { error: "Internal server error" };
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 }
