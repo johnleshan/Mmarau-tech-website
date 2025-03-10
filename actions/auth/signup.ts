@@ -52,17 +52,15 @@ export async function signUp(state:FormState,formData: FormData):Promise<FormSta
     },
   })
 
-  console.log(newUser);
+  if(newUser){
+    return {
+      message: "New user was successfully created",
+    }
+  }
 
   // TODO: email verification
   // Send verification email (future feature)
 
- 
-if(newUser){
-  //redirect user to home page: in the future change the path to the home url
-  redirect("/")
-
-}
   
 } catch (error) {
 

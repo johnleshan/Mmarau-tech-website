@@ -2,12 +2,36 @@
 
 import Link from "next/link";
 import { useActionState } from "react"; 
+import { useState , useEffect } from "react";
+import { useRouter } from 'next/navigation';
+import Toast from "../components/Toast"; 
+
 
 export default function SignUpFormClient({ action }) {
+  const router = useRouter();
   const [state, doAction, pending] = useActionState(action, undefined);
   const errors = state?.fieldErrors;
+  const message = state?.message;
+  const [toastMessage, setToastMessage] = useState("");
+
+  useEffect(() => {
+    if (message === "New user was successfully created") {
+      setToastMessage("Account was created successfully!");
+
+    setTimeout(() => {
+      router.push("/login");
+    }, 2000);
+
+    }
+  }, [message, router]);
 
   return (
+   <> {toastMessage && (
+      <Toast
+        message={toastMessage}
+        onClose={() => setToastMessage("")}
+      />
+    )}
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -128,5 +152,6 @@ export default function SignUpFormClient({ action }) {
         </div>
       </div>
     </section>
+    </>
   );
 }
