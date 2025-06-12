@@ -1,0 +1,203 @@
+---
+import { Image } from "astro:assets";
+import logoIcon from "../assets/icons/GDGoC-Logo.jpg";
+import blogsIcon from "../assets/icons/blogs.svg";
+import folderIcon from "../assets/icons/folder-icon.svg";
+import homeIcon from "../assets/icons/home-icon.svg";
+import loginIcon from "../assets/icons/login-icon.svg";
+import menuIcon from "../assets/icons/menu-icon.png";
+import programsIcon from "../assets/icons/programs.svg";
+import usersIcon from "../assets/icons/users-icon.svg";
+---
+
+<nav class="navBar flex items-center relative">
+    <div class="w-52 logo">
+        <a href="/">
+            <div class="flex items-center pt-2 px-2 pb-2 cursor-default">
+                <Image
+                    src={logoIcon}
+                    alt="logo"
+                    width={40}
+                    height={30}
+                    class="object-contain justify-start rounded-full cursor-pointer"
+                />
+                <span
+                    class="ml-2 font-primary text-white font-extrabold text-2xl cursor-pointer"
+                >
+                    <span style="color: var(--ggle-blue)">G</span>
+                    <span style="color: var(--ggle-green)">D</span>
+                    <span style="color: var(--ggle-red-500)">G</span>
+                    <span style="color: var(--ggle-grey)">o</span>
+                    <span style="color: var(--ggle-yellow-500)">C</span>
+                </span>
+            </div>
+        </a>
+    </div>
+
+    <ul
+        class="dynamic-island transform transition-transform duration-300"
+        id="nav-menu"
+    >
+        <li>
+            <a href="/">
+                <div class="flex items-center linked-li">
+                    <Image
+                        src={homeIcon}
+                        alt="home"
+                        width={20}
+                        height={20}
+                        class="object-contain mr-2"
+                    />
+                    <span class="md:hidden lg:inline xl:inline">Home</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="/community">
+                <div class="flex items-center linked-li">
+                    <Image
+                        src={usersIcon}
+                        alt="community"
+                        width={20}
+                        height={20}
+                        class="object-contain mr-2"
+                    />
+                    <span class="md:hidden lg:inline xl:inline">Community</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="/programs">
+                <div class="flex items-center linked-li">
+                    <Image
+                        src={programsIcon}
+                        alt="programs"
+                        width={20}
+                        height={20}
+                        class="object-contain mr-2"
+                    />
+                    <span class="md:hidden lg:inline xl:inline">Programs</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="/blog">
+                <div class="flex items-center linked-li">
+                    <Image
+                        src={blogsIcon}
+                        alt="blogs"
+                        width={20}
+                        height={20}
+                        class="object-contain mr-2"
+                    />
+                    <span class="md:hidden lg:inline xl:inline">Blogs</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="/resources">
+                <div class="flex items-center linked-li">
+                    <Image
+                        src={folderIcon}
+                        alt="resources"
+                        width={20}
+                        height={20}
+                        class="object-contain mr-2"
+                    />
+                    <span class="md:hidden lg:inline xl:inline">Resources</span>
+                </div>
+            </a>
+        </li>
+        <li class="mobile-signin" id="mobile-signin">
+            <a href="/contact" class="flex items-center">
+                <div class="flex items-center">
+                    <span class="md:hidden lg:inline xl:inline">Contact</span>
+                    <Image
+                        src={loginIcon}
+                        alt="contact"
+                        width={20}
+                        height={20}
+                        class="object-contain sm:ml-2 md:ml-0 lg:ml-2 xl:ml-2"
+                    />
+                </div>
+            </a>
+        </li>
+    </ul>
+
+    <div class="hidden sm:block">
+        <ul>
+            <li class="logIn flex">
+                <a href="/contact" class="flex items-center">
+                    <div class="flex items-center">
+                        <span class="md:hidden lg:inline xl:inline"
+                            >Contact</span
+                        >
+                        <Image
+                            src={loginIcon}
+                            alt="contact"
+                            width={20}
+                            height={20}
+                            class="object-contain sm:ml-2 md:ml-0 lg:ml-2 xl:ml-2"
+                        />
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div
+        class="bg-[var(--ggle-blue)] p-4 m-3 flex justify-center items-center rounded-lg cursor-pointer sm:hidden"
+        id="menu-toggle"
+    >
+        <Image
+            src={menuIcon}
+            alt="menu"
+            width={25}
+            height={25}
+            class="menu-icon z-50 cursor-pointer"
+        />
+    </div>
+</nav>
+
+<style>
+    @media (max-width: 480px) {
+        .dynamic-island {
+            transform: translateX(100%);
+        }
+
+        .dynamic-island.show {
+            transform: translateX(0);
+        }
+
+        .mobile-signin {
+            display: none;
+        }
+
+        .dynamic-island.show .mobile-signin {
+            display: block;
+        }
+    }
+
+    @media (min-width: 481px) {
+        .dynamic-island {
+            transform: translateX(0);
+        }
+
+        .mobile-signin {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuToggle = document.getElementById("menu-toggle");
+        const navMenu = document.getElementById("nav-menu");
+
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener("click", () => {
+                navMenu.classList.toggle("show");
+            });
+        }
+    });
+</script>
