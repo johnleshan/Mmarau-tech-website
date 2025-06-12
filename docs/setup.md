@@ -1,68 +1,77 @@
 # Project Setup Guide
 
-This guide will help you set up and run the project locally.
+This guide will help you set up the project locally from scratch.
 
 ## Prerequisites
 
-Before you begin, ensure you have the following installed:
+- **Node.js** (v14+ recommended)
+- **npm** or **yarn**
+- **MySQL Server** installed and running
+- **Git**
 
-- Node.js (version 18 or higher recommended)
-- npm (comes with Node.js) or Bun
+## Steps
 
-## Installation
+### 1. Clone the Repository
 
-1.  **Clone the repository:**
+Open your terminal and run the following command to clone the repository:
 
-    ```bash
-    git clone https://github.com/gdgoc-mmarau1/Mmarau-tech-website.git
-    cd Mmarau-tech-website
-    ```
+```bash
+git clone <repository-url> 
+cd <repository-directory>
+```
 
-2.  **Install dependencies:**
+> Replace `<repository-url>` with the URL of your repository/fork and `<repository-directory>` with the folder name.
 
-    Using npm:
-    ```bash
-    npm install
-    ```
+### 2. Install Dependencies
 
-    Or using Bun:
-    ```bash
-    bun install
-    ```
+Install all required Node.js packages using npm (or yarn):
 
-## Running the Development Server
+```bash
+npm install
+```
 
-To start the development server, run the following command:
+### 3. Configure Environment Variables
 
-Using npm:
+Create a `.env` file in the root directory of your project which follows `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+change the following environment variables:
+
+```env
+# .env
+
+# MySQL database connection string
+DATABASE_URL="mysql://user:password@localhost:3306/your_database_name"
+
+# JWT secret used for signing tokens
+JWT_SECRET="your_very_secure_jwt_secret"
+```
+
+> **Note:** Replace `user`, `password`, `your_database_name`, and `your_very_secure_jwt_secret` with your actual database credentials and a strong, random string for the JWT secret. Do not push `.env` to github
+
+### 4. Set Up Prisma
+
+Prisma is used as the ORM for our database interactions. Follow these steps:
+
+1. **Push the Prisma schema to your database:**
+
+   ```bash
+   npx prisma db push
+   ```
+
+   This command creates or updates the database schema according to `schema.prisma`.
+
+
+### 5. Run the Development Server
+
+Start the Next.js development server with:
+
 ```bash
 npm run dev
 ```
 
-Or using Bun:
-```bash
-bun run dev
-```
+Your app should now be running at [http://localhost:3000](http://localhost:3000).
 
-This will start the development server, usually at `http://localhost:4321`. You can open this URL in your browser to see the application. The server will automatically reload when you make changes to the code.
-
-## Building for Production
-
-To build the static site for production, run the following command:
-
-Using npm:
-```bash
-npm run build
-```
-
-Or using Bun:
-```bash
-bun run build
-```
-
-This will create a `dist/` directory with the optimized static files. You can then deploy this directory to your hosting provider.
-
-## Other Available Scripts
-
--   `npm run preview` or `bun run preview`: Starts a local server to preview the production build.
--   `npm run astro` or `bun run astro`: Provides access to the Astro CLI for various commands.
