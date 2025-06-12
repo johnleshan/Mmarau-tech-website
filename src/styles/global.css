@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xsm: 480px;
+}
+
+:root {
+    --accent: #2337ff;
+    --accent-dark: #000d8a;
+    --black: 15, 18, 25;
+    --gray: 96, 115, 159;
+    --gray-light: 229, 233, 240;
+    --gray-dark: 34, 41, 57;
+    --gray-gradient: rgba(var(--gray-light), 50%), #fff;
+    --box-shadow:
+        0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
+        0 16px 32px rgba(var(--gray), 33%);
+
+    /* Google Brand Colors */
+    --ggle-blue: #4285f4;
+    --ggle-green: #34a853;
+    --ggle-red-500: #ea4335;
+    --ggle-grey: #9aa0a6;
+    --ggle-yellow-500: #fbbc04;
+
+    --background: #ffffff;
+    --foreground: #171717;
+    --ggle-blue: #4285f4;
+    --ggle-red-500: #ea4335;
+    --ggle-red: #db4437;
+    --ggle-yellow: #f4b400;
+    --ggle-yellow-500: #fbbc04;
+    --ggle-green: #0f9d58;
+    --ggle-grey: #9aa0a6;
+    --ggle-green-500: #34a853;
+    --font-primary: "Montserrat", sans-serif;
+    --font-secondary: "Outfit", sans-serif;
+    --bg-gradient: linear-gradient(
+        45deg,
+        var(--ggle-yellow),
+        var(--ggle-red),
+        var(--ggle-yellow)
+    );
+}
+@font-face {
+    font-family: "Atkinson";
+    src: url("/fonts/atkinson-regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Atkinson";
+    src: url("/fonts/atkinson-bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+body {
+    font-family: "Atkinson", sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    background: linear-gradient(var(--gray-gradient)) no-repeat;
+    background-size: 100% 600px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    color: rgb(var(--gray-dark));
+    font-size: 20px;
+    line-height: 1.7;
+}
+
+.font-primary {
+    font-family: var(--font-primary);
+}
+
+.font-secondary {
+    font-family: var(--font-secondary);
+}
+/* .bg-ggle-sign {
+  background-color: var(--ggle-blue);
+} */
+/* @layer utilities {
+    .bg-ggle-sign {
+        background-color: #32a8a0;
+    }
+} */
+
+/* Start Nav bar styles */
+.navBar {
+    @apply text-white justify-between items-center;
+}
+
+.navBar .dynamic-island {
+    background-color: var(--ggle-blue);
+    @apply flex items-center justify-center rounded-lg;
+}
+
+@media (max-width: 480px) {
+    .navBar .dynamic-island {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 40;
+        background-color: var(--ggle-blue);
+        flex-direction: column;
+        padding: 2rem;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .navBar .dynamic-island.show {
+        transform: translateX(0);
+    }
+}
+
+.navBar ul li {
+    @apply inline-block p-3 px-5 text-white  justify-around items-center relative;
+}
+
+.navBar ul li .linked-li {
+    position: relative;
+}
+
+.navBar ul li .linked-li::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px; /* Adjust as needed to position the line below the linked-li div */
+    width: 0;
+    height: 2px;
+    background-color: white;
+    transition: width 0.3s ease-in-out;
+}
+
+.navBar ul li .linked-li:hover::after {
+    width: 100%;
+}
+
+.navBar .logIn {
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    color: #fff;
+    position: fixed;
+    z-index: 10;
+    bottom: 0.5rem;
+    right: 2.5rem;
+    background-color: #32a8a0;
+}
+
+@media (min-width: 768px) {
+    .navBar .logIn {
+        position: relative;
+        z-index: auto;
+        bottom: auto;
+        right: 0;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1.25rem;
+        background-color: #32a8a0;
+    }
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+/* End Nav bar */
